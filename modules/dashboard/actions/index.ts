@@ -108,22 +108,41 @@ export const deleteProjectById = async (id: string) => {
 };
 
 
-export const editProjectById = async (
+// export const editProjectById = async (
+//   id: string,
+//   data: { title: string; description: string }
+// ) => {
+//   try {
+//     await db.playground.update({
+//       where: {
+//         id,
+//       },
+//       data: data,
+//     });
+//     revalidatePath("/dashboard");
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+ export const editProjectById = async (
   id: string,
   data: { title: string; description: string }
-) => {
+): Promise<void> => {
   try {
     await db.playground.update({
-      where: {
-        id,
+      where: { id },
+      data: {
+        title: data.title,
+        description: data.description, // ✅ nullable allowed
       },
-      data: data,
     });
+
     revalidatePath("/dashboard");
   } catch (error) {
     console.log(error);
   }
 };
+
 
 export const duplicateProjectById = async (id: string) => {
   try {

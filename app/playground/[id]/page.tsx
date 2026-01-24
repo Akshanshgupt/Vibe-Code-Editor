@@ -229,8 +229,11 @@ const MainPlaygroundPage = () => {
             await instance.fs.writeFile(filePath, fileToSave.content);
           }
         }
-           const newTemplateData = await saveTemplateData(updatedTemplateData);
-        setTemplateData(newTemplateData || updatedTemplateData);
+        //    const newTemplateData = await saveTemplateData(updatedTemplateData);
+        // setTemplateData(newTemplateData || updatedTemplateData);
+        await saveTemplateData(updatedTemplateData);
+setTemplateData(updatedTemplateData);
+
 // Update open files
         const updatedOpenFiles = openFiles.map((f) =>
           f.id === targetFileId

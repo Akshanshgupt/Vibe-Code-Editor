@@ -56,15 +56,28 @@ import { toast } from "sonner";
 import { MarkedToggleButton } from "./marked-toggle";
 // import { MarkedToggleButton } from "./marked-toggle";
 
+// interface ProjectTableProps {
+//   projects: Project[];
+//   onUpdateProject?: (
+//     id: string,
+//     data: { title: string; description: string }
+//   ) => Promise<void>;
+//   onDeleteProject?: (id: string) => Promise<void>;
+//   onDuplicateProject?: (id: string) => Promise<void>;
+// }
+
 interface ProjectTableProps {
   projects: Project[];
+
   onUpdateProject?: (
     id: string,
-    data: { title: string; description: string }
-  ) => Promise<void>;
-  onDeleteProject?: (id: string) => Promise<void>;
-  onDuplicateProject?: (id: string) => Promise<void>;
+    data: { title: string; description: string}
+  ) => Promise<unknown>;   
+
+  onDeleteProject?: (id: string) => Promise<unknown>;     
+  onDuplicateProject?: (id: string) => Promise<unknown>;  
 }
+
 
 interface EditProjectData {
   title: string;
@@ -185,7 +198,7 @@ export default function ProjectTable({
                       <span className="font-semibold">{project.title}</span>
                     </Link>
                     <span className="text-sm text-gray-500 line-clamp-1">
-                      {project.description}
+                      {project.description ?? "No description"}
                     </span>
                   </div>
                 </TableCell>
@@ -207,13 +220,16 @@ export default function ProjectTable({
                     <div className="w-8 h-8 rounded-full overflow-hidden">
                       <Image
                         src={project.user.image || "/placeholder.svg"}
-                        alt={project.user.name}
+                        alt={project.user.name ?? "User avatar"}
                         width={32}
                         height={32}
                         className="object-cover"
                       />
                     </div>
-                    <span className="text-sm">{project.user.name}</span>
+                    <span className="text-sm">
+  {project.user.name ?? "Unknown user"}
+</span>
+
                   </div>
                 </TableCell>
                 <TableCell>
@@ -309,7 +325,7 @@ export default function ProjectTable({
               <Label htmlFor="description">Description</Label>
               <Textarea
                 id="description"
-                value={editData.description}
+                value={editData.description ?? ""}
                 onChange={(e) =>
                   setEditData((prev) => ({
                     ...prev,
