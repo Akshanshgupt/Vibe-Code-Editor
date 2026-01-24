@@ -126,14 +126,14 @@ export const deleteProjectById = async (id: string) => {
 // };
  export const editProjectById = async (
   id: string,
-  data: { title: string; description: string }
+  data: { title: string; description: string | null }
 ): Promise<void> => {
   try {
     await db.playground.update({
       where: { id },
       data: {
         title: data.title,
-        description: data.description, // ✅ nullable allowed
+        description: data.description ?? undefined, // ✅ nullable allowed
       },
     });
 
