@@ -80,7 +80,14 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const session = await auth()
+  // Gracefully handle auth during build time when database may not be available
+  let session = null;
+  try {
+    session = await auth();
+  } catch (error) {
+    // During build time, database connections may not be available
+    // This is expected and safe to ignore - session will be null
+  }
 
   return (
     <html lang="en" suppressHydrationWarning>
