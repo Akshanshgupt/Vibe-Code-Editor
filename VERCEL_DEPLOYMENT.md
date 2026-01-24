@@ -53,9 +53,11 @@ Or use an online generator: https://generate-secret.vercel.app/32
 Vercel will automatically detect the build settings from `vercel.json`:
 
 - **Framework Preset**: Next.js
-- **Build Command**: `prisma generate && next build`
+- **Build Command**: `prisma generate && npm run generate-templates && next build`
 - **Output Directory**: `.next` (auto-detected)
 - **Install Command**: `npm install`
+
+**Note**: The build process includes template generation which creates pre-built JSON files for all templates. This is required for Vercel's serverless environment where filesystem access is limited.
 
 ### 4. Deploy
 
